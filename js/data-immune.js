@@ -380,6 +380,11 @@ azole:{t:'Ergosterol and the antifungal targets',k:'drug',blk:'infect',sec:'anti
   Object.keys(an).forEach(id=>{if(PATHWAYS[id]&&!PATHWAYS[id].an) PATHWAYS[id].an=an[id];});
 })();
 
+/* Retag older cards from data.js into the new chapters */
+FLIPS.forEach(f=>{ if(f[0]!=='immune') return;
+  if(/clotting|PT tests|Haemophilia|Red cell|EPO|white cell/i.test(f[1])) f[0]='blood';
+  else if(/Gram|Endotoxin|Alcohol gel|Antigenic shift|MRSA|PCR|Fever vs|IgM vs IgG serology/i.test(f[1])) f[0]='infect'; });
+
 /* Extra rapid-recall cards (tag: blood, immune, infect) */
 FLIPS.push(
  ['blood','Three steps of primary haemostasis','Adhesion (vWF–GPIb), activation (shape change, granules, TXA₂), aggregation (GPIIb/IIIa + fibrinogen).'],

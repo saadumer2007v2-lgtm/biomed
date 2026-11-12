@@ -172,7 +172,7 @@ function orderMode(P,id,body,status){
     const grip=!!e.target.closest('.dd-grip');
     if(e.pointerType!=='mouse'&&!grip) return;
     if(grip) e.preventDefault();
-    DRAG={li,list,sy:e.pageY,y:e.clientY,active:false,raf:0,done:changed};
+    DRAG={li,list,sy:e.clientY+window.scrollY,y:e.clientY,active:false,raf:0,done:changed};
   });
   if(!dragListenersOn){ dragListenersOn=true;
     const place=()=>{const d=DRAG, li=d.li, L=d.list;
@@ -187,7 +187,7 @@ function orderMode(P,id,body,status){
       if(y<130) v=-Math.min(18,(130-y)/4); else if(y>innerHeight-70) v=Math.min(18,(y-(innerHeight-70))/4);
       if(v){window.scrollBy(0,v); place();} DRAG.raf=requestAnimationFrame(auto);};
     window.addEventListener('pointermove',e=>{ if(!DRAG) return; DRAG.y=e.clientY;
-      if(!DRAG.active){ if(Math.abs(e.pageY-DRAG.sy)<5) return; DRAG.active=true; DRAG.li.classList.add('dragging'); DRAG.list.classList.add('is-dragging'); $$('.sel',DRAG.list).forEach(x=>x.classList.remove('sel')); DRAG.raf=requestAnimationFrame(auto); }
+      if(!DRAG.active){ if(Math.abs(e.clientY+window.scrollY-DRAG.sy)<5) return; DRAG.active=true; DRAG.li.classList.add('dragging'); DRAG.list.classList.add('is-dragging'); $$('.sel',DRAG.list).forEach(x=>x.classList.remove('sel')); DRAG.raf=requestAnimationFrame(auto); }
       e.preventDefault(); place();},{passive:false});
     const end=()=>{ if(!DRAG) return; const d=DRAG; DRAG=null; cancelAnimationFrame(d.raf);
       if(d.active){ d.li.classList.remove('dragging'); d.li.style.transform=''; d.list.classList.remove('is-dragging'); d.list.dataset.justDragged='1'; setTimeout(()=>{delete d.list.dataset.justDragged;},60); d.done(); } };
@@ -366,7 +366,8 @@ function renderDrills(){
 }
 
 /* ---------- quick questions ---------- */
-const norm=s=>String(s).toLowerCase().replace(/[^a-z0-9]/g,'');
+const SUB={'₀':'0','₁':'1','₂':'2','₃':'3','₄':'4','₅':'5','₆':'6','₇':'7','₈':'8','₉':'9','α':'alpha','β':'beta','γ':'gamma','κ':'kappa'};
+const norm=s=>String(s).toLowerCase().replace(/[₀-₉αβγκ]/g,c=>SUB[c]).replace(/[^a-z0-9]/g,'');
 function matchGroups(groups,ans,no){const n=norm(ans); if(!n) return false; if(no&&no.some(w=>n.includes(norm(w)))) return false; return groups.every(g=>g.split('|').some(a=>n.includes(norm(a))));}
 function renderQuiz(){
   const list=$('#qz-list'); if(!list) return;
@@ -420,7 +421,11 @@ function renderExam(){
   const root=$('#exam-app'); if(!root) return;
   const PAPERS=window.EXAM_PAPERS||{};
   const pool=[], byId={};
-  Object.keys(PAPERS).sort().forEach(k=>PAPERS[k].qs.forEach((q,i)=>{q.id=k+(i+1); q.paper=k; q.n=i+1; pool.push(q); byId[q.id]=q;}));
+  /* Spread the correct answers across positions with a fixed per-question seed, so the order is stable between visits */
+  const seeded=(seed,arr)=>{let x=seed>>>0||1; const r=()=>{x^=x<<13; x>>>=0; x^=x>>>17; x^=x<<5; x>>>=0; return x/4294967296;};
+    for(let i=arr.length-1;i>0;i--){const j=Math.floor(r()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]];} return arr;};
+  Object.keys(PAPERS).sort().forEach(k=>PAPERS[k].qs.forEach((q,i)=>{q.id=k+(i+1); q.paper=k; q.n=i+1; pool.push(q); byId[q.id]=q;
+    if(q.type==='sba'&&!q.fixed&&!q._mixed){const perm=seeded((k.charCodeAt(0)*7919+i*104729+17),q.o.map((o,j)=>j)); q.o=perm.map(j=>q.o[j]); q.a=perm.indexOf(q.a); q._mixed=true;}}));
   if(!pool.length){root.innerHTML='<p class="muted">The exam papers did not load.</p>'; return;}
   let S=LS.get('bio-exam-cur',null);
   if(S&&(!S.ids||S.ids.some(id=>!byId[id]))) S=null;
@@ -532,12 +537,12 @@ function renderExam(){
       <div class="ex-prog" aria-hidden="true"><i></i></div>
       <div class="ex-confirm" hidden></div>
       <div class="ex-body"><div class="ex-main" id="ex-main"></div>
-        <aside class="ex-side"><details class="ex-navbox" open><summary>Question map <span class="small muted" id="ex-mapsum"></span></summary><div class="ex-grid" id="ex-grid"></div>
+        <aside class="ex-side"><details class="ex-navbox"${window.matchMedia('(min-width: 901px)').matches?' open':''}><summary>Question map <span class="small muted" id="ex-mapsum"></span></summary><div class="ex-grid" id="ex-grid"></div>
           <div class="ex-legend small muted"><span><i class="lg cur"></i>current</span><span><i class="lg ans"></i>answered</span><span><i class="lg flag"></i>flagged</span>${S.set.fb==='each'?'<span><i class="lg ok"></i>right</span><span><i class="lg no"></i>wrong</span>':''}</div></details>
           <p class="small muted ex-keys">Keys: <kbd>A</kbd>–<kbd>E</kbd> or <kbd>1</kbd>–<kbd>5</kbd> choose · <kbd>Enter</kbd> ${S.set.fb==='each'?'check / next':'next'} · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>F</kbd> flag</p></aside></div></div>`;
     root.onchange=null;
     root.onclick=onRunClick;
-    root.oninput=e=>{if(e.target.id==='ex-saq'){const q=byId[S.ids[S.cur]]; if(S.lock[q.id]) return; S.ans[q.id]=e.target.value; save(); grid();}};
+    root.oninput=e=>{if(e.target.id==='ex-saq'){const q=byId[S.ids[S.cur]]; if(S.lock[q.id]) return; S.ans[q.id]=e.target.value; save(); grid(); const c=$('[data-r="check"]',root); if(c) c.disabled=!answered(S,q);}};
     drawQ(); grid(); if(S.paused) pauseView(); else startClock();
   }
   function grid(){
@@ -657,7 +662,7 @@ function renderExam(){
   /* ----- keyboard ----- */
   document.addEventListener('keydown',e=>{
     if(current!=='exam'||view!=='run'||!S||S.paused||e.ctrlKey||e.metaKey||e.altKey) return;
-    const typing=e.target.matches('input,textarea,select');
+    const typing=!!(e.target.matches&&e.target.matches('input,textarea,select'));
     const q=byId[S.ids[S.cur]];
     if(typing){ if(e.key==='Enter'&&e.target.id==='ex-saq'){e.preventDefault(); if(S.set.fb==='each'&&!S.lock[q.id]&&answered(S,q)) check(); else go(S.cur+1);} return; }
     const k=e.key.toLowerCase();

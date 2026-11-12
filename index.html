@@ -7,7 +7,7 @@
 <title>Biomed Pathway Atlas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="css/revise.css">
+<link rel="stylesheet" href="css/revise.css?v=6">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
 /* Layout concept: companion to the Limb Anatomy Atlas. Same atlas plate system (sticky chapter tabs, left index rail,
@@ -1538,7 +1538,7 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
         <path d="M80,198 L80,156" class="a-stim"/>
         <rect x="30" y="114" width="130" height="40" rx="10" class="n-org"/><text x="95" y="139" class="b lab" text-anchor="middle">Trace thrombin</text>
         <path d="M160,134 H280" stroke="var(--stim)" stroke-width="2.2" fill="none"/><text x="220" y="126" class="sm" text-anchor="middle">thrombin</text>
-        <text x="194" y="252" class="sm" text-anchor="middle">IXa moves to</text><text x="194" y="264" class="sm" text-anchor="middle">the platelet</text>
+        <text x="194" y="190" class="sm" text-anchor="middle">IXa → to platelet</text>
         <path d="M282,132 V282" stroke="var(--stim)" stroke-width="2.2" fill="none"/>
         <path d="M282,132 H293" class="a-stim"/><path d="M282,180 H293" class="a-stim"/><path d="M282,228 H293" class="a-stim"/><path d="M282,280 H293" class="a-stim"/>
         <text x="390" y="100" class="sm" text-anchor="middle">thrombin switches on:</text>
@@ -1874,7 +1874,7 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
             <li><b>Red pulp</b> filters blood: macrophages remove old, damaged or antibody-coated red cells and platelets (this is where ITP platelets and spherocytes are destroyed).</li>
             <li><b>White pulp</b> is lymphoid tissue around arterioles: T cells in the periarteriolar lymphoid sheath (PALS), B cell follicles beside them.</li>
             <li>The <b>marginal zone</b> B cells make fast IgM against polysaccharide capsules without T cell help. Lose the spleen and you lose this, hence the risk of overwhelming pneumococcal, meningococcal and Hib sepsis.</li>
-            <li>After splenectomy (or in sickle cell disease, which destroys the spleen): vaccines (pneumococcal, Hib/MenC, MenB, MenACWY, annual flu), often lifelong penicillin V, and urgent treatment of any fever. A blood film shows Howell–Jolly bodies.</li>
+            <li>After splenectomy (or in sickle cell disease, which destroys the spleen): vaccines (pneumococcal, Hib, MenACWY and MenB, annual flu), often lifelong penicillin V, and urgent treatment of any fever. A blood film shows Howell–Jolly bodies.</li>
           </ul>
         </div>
         <div class="note think"><span class="tag">Think of it as</span><p>Lymphatics are the storm drains of the tissues, and lymph nodes are police checkpoints along them. Everything that drains from a tissue is inspected before it reaches the blood, so an infection in the foot is "reported" at the groin first.</p></div>
@@ -2172,7 +2172,7 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
         <path d="M350,226 C320,246 260,252 230,256" class="a-stim"/><path d="M430,226 C460,246 500,252 530,256" class="a-stim"/>
         <rect x="120" y="242" width="110" height="34" rx="10" class="n-box"/><text x="175" y="264" class="b lab" text-anchor="middle">C3a</text>
         <rect x="530" y="242" width="110" height="34" rx="10" class="n-box"/><text x="585" y="264" class="b lab" text-anchor="middle">C3b</text>
-        <path d="M585,276 C560,300 470,300 440,306" class="a-stim"/><path d="M548,242 C520,214 506,196 494,166" class="a-stim" style="stroke-dasharray:4 3"/><text x="500" y="214" class="sm" text-anchor="end">amplification loop</text>
+        <path d="M585,276 C560,300 470,300 440,306" class="a-stim"/><path d="M548,242 C520,214 506,196 494,166" class="a-stim" style="stroke-dasharray:4 3"/><text x="556" y="200" class="sm">amplification loop</text>
         <rect x="300" y="290" width="180" height="34" rx="10" class="n-org"/><text x="390" y="312" class="b lab" text-anchor="middle">C5 convertase → C5</text><text x="390" y="338" class="sm" text-anchor="middle">C4b2a3b or C3bBb3b</text>
         <path d="M350,324 C320,344 270,350 250,354" class="a-stim"/><path d="M430,324 C460,344 510,350 530,354" class="a-stim"/>
         <rect x="140" y="340" width="110" height="34" rx="10" class="n-box"/><text x="195" y="362" class="b lab" text-anchor="middle">C5a</text>
@@ -3508,11 +3508,11 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
 <footer class="foot">Biomed Pathway Atlas · built for BMBS Year 1, October 2026. Green arrows stimulate, red bars inhibit, dashed plum bars mark where drugs and diseases act.</footer>
   </main>
 </div>
-<script src="js/data.js"></script>
-<script src="js/data-immune.js"></script>
-<script src="js/exam-a.js"></script>
-<script src="js/exam-b.js"></script>
-<script src="js/app.js"></script>
+<script src="js/data.js?v=6"></script>
+<script src="js/data-immune.js?v=6"></script>
+<script src="js/exam-a.js?v=6"></script>
+<script src="js/exam-b.js?v=6"></script>
+<script src="js/app.js?v=6"></script>
 
 </body>
 </html>
