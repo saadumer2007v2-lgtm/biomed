@@ -746,7 +746,9 @@ function axisSVG(a){
   (a.side||[]).forEach(s=>{const lines=[].concat(s[1]), yy=ys[s[0]]+bh/2-(lines.length-1)*7+4;
     out+=lines.map((l,k)=>`<text x="${x0-12}" y="${yy+k*15}" class="sm ${s[2]||'t-drug'}" text-anchor="end">${l}</text>`).join('');});
   if(a.fx){const lines=a.fx, h=18+lines.length*16; out+=`<path d="M${cx},${H-12} V${H+10}" class="a-stim"/><rect x="${cx-200}" y="${H+12}" width="400" height="${h}" rx="10" class="n-box"/>`+lines.map((l,k)=>`<text x="${cx}" y="${H+32+k*16}" class="sm${k?'':' b'}" text-anchor="middle">${l}</text>`).join(''); H+=h+22;}
-  return `<svg viewBox="0 0 600 ${H}" role="img" aria-label="${esc(a.label||'Flow diagram')}">${out}</svg>`;
+  /* crop to the content so the figure stays readable in a narrow column */
+  const nfb=(a.fb||[]).length, left=a.side?0:(a.fx?92:x0-14), right=Math.max(nfb?xr+56+(nfb-1)*34+104:xr+14,a.fx?508:0);
+  return {w:right-left,svg:`<svg viewBox="${left} 0 ${right-left} ${H}" role="img" aria-label="${esc(a.label||'Flow diagram')}">${out}</svg>`};
 }
 function blockHTML(b){
   switch(b[0]){
@@ -762,11 +764,11 @@ function blockHTML(b){
     case 'card': return cardHTML(b.slice(1));
     case 'pw': return `<div class="pws">${b.slice(1).map(id=>`<div class="pw-slot" data-pw="${id}"></div>`).join('')}</div>`;
     case 'pwside': return `<div class="pws"><div class="pw-slot" data-pw="${b[1]}"></div><div class="sub">${b.slice(2).map(blockHTML).join('')}</div></div>`;
-    case 'two': return `<div class="twocol">${b.slice(1).map(blockHTML).join('')}</div>`;
+    case 'two': return `<div class="twocol${b.slice(1).some(x=>['axis','fig','explore','sw'].includes(x[0]))?' wide2':''}">${b.slice(1).map(blockHTML).join('')}</div>`;
     case 'fig': return figWrap(b[1],b[2],b[3],b[4],b[5]);
     case 'explore': XP[b[1]]=b[6]; return figWrap(b[1],b[2],b[3],b[4],b[5],'',`<div class="xp-keys">${Object.keys(b[6]).map(k=>`<button type="button" class="pbtn" data-xk="${k}" aria-pressed="false">${b[6][k][0]}</button>`).join('')}</div><div class="xp-detail" aria-live="polite">Tap a part of the diagram, or one of the buttons, to see what it does.</div>`,'explore');
     case 'sw': SWV[b[1]]=b[6]; return figWrap(b[1],b[2],b[3],b[4],b[5],`<div class="seg sw-seg" role="group" aria-label="Choose a pattern">${b[6].map(v=>`<button type="button" data-sv="${v[0]}">${v[1]}</button>`).join('')}</div>`,'<div class="xp-detail sw-detail" aria-live="polite"></div>','sw');
-    case 'axis': return figWrap(b[1],b[2],b[3],b[4].minw||440,axisSVG(b[4]));
+    case 'axis': {const r=axisSVG(b[4]); return figWrap(b[1],b[2],b[3],Math.round(Math.min(380,r.w*0.72)),r.svg);}
     case 'tree': return `<div class="tree-host" data-tree="${b[1]}"></div>`;
     case 'kv': return `<div class="card"><h4>${b[1]}</h4><dl class="kv">${b[2].map(r=>`<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join('')}</dl></div>`;
     case 'flow': return `<div class="flow">${b[1].map(r=>`<div><b>${r[0]}</b>${r[1]||''}</div>`).join('')}</div>`;
