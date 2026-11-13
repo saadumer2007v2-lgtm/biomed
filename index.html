@@ -7,7 +7,7 @@
 <title>Biomed Pathway Atlas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="css/revise.css?v=6">
+<link rel="stylesheet" href="css/revise.css?v=7">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
 /* Layout concept: companion to the Limb Anatomy Atlas. Same atlas plate system (sticky chapter tabs, left index rail,
@@ -485,23 +485,21 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
 
 <div class="topbar">
   <div class="topbar-inner">
-    <a class="brand" href="#start"><b>Biomed Pathway Atlas</b><span>MSK · Blood · Immunity</span></a>
-    <nav class="tabs" role="tablist" aria-label="Chapters">
-      <button class="tab" role="tab" data-tab="start" aria-selected="true">Start</button>
-      <button class="tab" role="tab" data-tab="msk" aria-selected="false">MSK biomed</button>
-      <button class="tab" role="tab" data-tab="blood" aria-selected="false">Blood &amp; healing</button>
-      <button class="tab" role="tab" data-tab="immune" aria-selected="false">Immunity</button>
-      <button class="tab" role="tab" data-tab="infect" aria-selected="false">Infection &amp; drugs</button>
+    <button class="menu-btn" id="menu-btn" type="button" aria-label="Open chapter menu" aria-expanded="false"><span aria-hidden="true">☰</span><span class="lbl">Chapters</span></button>
+    <a class="brand" href="#start"><b>Biomed Pathway Atlas</b><span>Year 1 biomed</span></a>
+    <div class="top-search" role="search"><input type="search" id="site-search" placeholder="Search: action potential, furosemide, Addison's…" aria-label="Search the atlas" autocomplete="off"><div class="search-results" id="search-results" hidden></div></div>
+    <nav class="tabs" role="tablist" aria-label="Revise">
+      <button class="tab" role="tab" data-tab="spec" aria-selected="false">Spec</button>
       <button class="tab" role="tab" data-tab="test" aria-selected="false">Self-test</button>
       <button class="tab" role="tab" data-tab="exam" aria-selected="false">Exam papers</button>
-      <button class="tab" role="tab" data-tab="sources" aria-selected="false">Sources &amp; slide checks</button>
     </nav>
   </div>
 </div>
 
+<div class="rail-backdrop" id="rail-backdrop"></div>
 <div class="layout">
-  <aside class="rail" aria-label="On this page">
-    <span class="eyebrow" id="rail-title">On this page</span>
+  <aside class="rail" id="rail" aria-label="Chapters and sections">
+    <nav id="chapter-nav" aria-label="Chapters"></nav>
     <ol id="rail-list"></ol>
     <div class="legend-mini">
       <span class="eyebrow" style="margin:0">Pathway grammar</span>
@@ -517,14 +515,15 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
 <!-- ======================================================= START ======================================================= -->
 <section class="panel" id="panel-start" data-panel="start">
   <div class="opener" id="start">
-    <span class="eyebrow">Chapter 1 · How this atlas works</span>
+    <span class="eyebrow">Year 1 biomedical science · all eight blocks</span>
     <h1>Biomed as pathways you can switch off and test</h1>
-    <p class="lede">The biomedical science of your first two blocks: bone, calcium, muscle, NSAIDs, blood, clotting, inflammation, immunity, microbes and the drugs that act on them. Every process is laid out as a numbered pathway, and every pathway can be hidden or shuffled so you practise recall instead of re-reading.</p>
+    <p class="lede">The biomedical science and clinical links for the whole of Year 1: cells and drugs, musculoskeletal, blood and immunity, infection, the nervous system, endocrine and reproduction, respiratory, cardiovascular, renal and gastrointestinal. Every process is a numbered pathway you can hide or drag back into order, every chapter ends its sections with questions, and the unofficial spec lists every point to tick off.</p>
+    <div class="home-grid" id="home-grid"></div>
     <div class="howto">
       <div><b>Learn</b>Read the pathway or diagram once, with the clinical links beside it.</div>
       <div><b>Hide</b>Switch the pathway to Hide and reveal each step only after you have said it out loud.</div>
       <div><b>Order</b>Switch to Order: the steps are shuffled and you drag them back into sequence, with hints and arrows showing which way each card should move. Quick tap is a faster version for phones.</div>
-      <div><b>Apply</b>Sit the two 100-question exam papers (timed or untimed), then export everything to Anki.</div>
+      <div><b>Apply</b>Answer the "Check yourself" questions in each section, sit the exam papers (timed or untimed), and rate yourself on the unofficial spec.</div>
     </div>
     <div>
       <span class="eyebrow">Your Year 1 blocks (2026–27)</span>
@@ -538,7 +537,7 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
         <div class="blk" data-s="2027-04-26" data-e="2027-05-14"><b>T3 · Apr–May</b>Renal</div>
         <div class="blk" data-s="2027-05-17" data-e="2027-06-04"><b>T3 · May–Jun</b>Gastrointestinal</div>
       </div>
-      <p class="small muted" style="margin-top:8px">Biomed learning outcomes covered here. MSK: tissue types and muscle microstructure; bone formation, remodelling, healing and fracture types; NSAIDs; imaging. Immune &amp; lymphatic: the lymphatic system; microorganisms and how they cause disease; innate and adaptive immunity; diagnosing infection; preventing and controlling infection; blood cells, haemostasis and wound healing.</p>
+      <p class="small muted" style="margin-top:8px">Built from the Year 1 peer-teaching decks for every block (MSK, Immune System, Nervous System, Repro and Endocrine, Respiratory, Cardio, Renal, GI and All Biomed), checked against standard references and current UK guidance. Slide errors are corrected and listed under Sources.</p>
     </div>
     <div class="legend-row">
       <span><i style="border-color:var(--stim)"></i>Stimulates / leads to</span>
@@ -636,7 +635,7 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
 <!-- ======================================================= MSK ======================================================= -->
 <section class="panel" id="panel-msk" data-panel="msk" hidden>
   <div class="opener">
-    <span class="eyebrow">Chapter 2 · Musculoskeletal biomed</span>
+    <span class="eyebrow">Musculoskeletal biomed</span>
     <h1>Bone, calcium and muscle</h1>
     <p class="lede">Bone is living tissue that is constantly broken down and rebuilt. Calcium hormones decide the balance. Muscle turns a nerve signal into movement through a calcium-triggered chain of events. Learn the pathways and the diseases explain themselves.</p>
   </div>
@@ -1348,7 +1347,7 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
 <!-- ======================================================= IMMUNE (part A) ======================================================= -->
 <section class="panel" id="panel-blood" data-panel="blood" hidden>
   <div class="opener">
-    <span class="eyebrow">Chapter 3 · Blood, clotting and repair</span>
+    <span class="eyebrow">Blood, clotting and repair</span>
     <h1>Blood, haemostasis and wound healing</h1>
     <p class="lede">Where blood cells come from, how bleeding is stopped in four acts (spasm, platelets, coagulation, fibrinolysis) with the brakes that keep a clot local, and how a wound heals from clot to scar. Every pathway can be hidden, dragged into order or tapped in sequence.</p>
   </div>
@@ -1767,7 +1766,7 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
 <!-- ======================================================= IMMUNITY ======================================================= -->
 <section class="panel" id="panel-immune" data-panel="immune" hidden>
   <div class="opener">
-    <span class="eyebrow">Chapter 4 · Immune and lymphatic biomed</span>
+    <span class="eyebrow">Immune and lymphatic biomed</span>
     <h1>Immunity: from barriers to memory</h1>
     <p class="lede">Follow an infection from the moment the skin is breached: lymphatics carry antigen to the nodes, innate cells and complement act within minutes, inflammation delivers the troops, adaptive cells arrive in days, antibodies and memory protect you for years. Finish with how it all ties together and what happens when immunity misfires.</p>
   </div>
@@ -2682,7 +2681,7 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
 <!-- ======================================================= INFECTION ======================================================= -->
 <section class="panel" id="panel-infect" data-panel="infect" hidden>
   <div class="opener">
-    <span class="eyebrow">Chapter 5 · Infection and its treatment</span>
+    <span class="eyebrow">Infection and its treatment</span>
     <h1>Microbes, diagnosis and antimicrobials</h1>
     <p class="lede">The microbes themselves, how each one triggers a different immune response and set of symptoms, how labs identify them, how antibiotics, antivirals, antifungals and antiparasitic drugs work, and how we stop infection spreading.</p>
   </div>
@@ -3320,10 +3319,36 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
   </section>
 </section>
 
+<!-- ======================================================= BODY SYSTEMS (rendered from js/ch-*.js) ======================================================= -->
+<section class="panel" id="panel-found" data-panel="found" hidden></section>
+<section class="panel" id="panel-neuro" data-panel="neuro" hidden></section>
+<section class="panel" id="panel-endo" data-panel="endo" hidden></section>
+<section class="panel" id="panel-resp" data-panel="resp" hidden></section>
+<section class="panel" id="panel-cardio" data-panel="cardio" hidden></section>
+<section class="panel" id="panel-renal" data-panel="renal" hidden></section>
+<section class="panel" id="panel-gi" data-panel="gi" hidden></section>
+
+<!-- ======================================================= SPEC ======================================================= -->
+<section class="panel" id="panel-spec" data-panel="spec" hidden>
+  <div class="opener">
+    <span class="eyebrow">Revise · Unofficial spec</span>
+    <h1>The unofficial Year 1 biomed spec</h1>
+    <p class="lede">Your course does not publish a point-by-point syllabus, so this is one built from the slides: every process, clinical link, drug and calculation worth knowing, grouped by block and topic. Rate yourself red, amber or green on each point, filter to the ones that need work, and follow the links back to the notes.</p>
+  </div>
+  <section class="sec" id="spec-list">
+    <header>
+      <span class="eyebrow">Spec · Checklist</span>
+      <h2>Everything to know, block by block</h2>
+      <p>Wording follows exam verbs: describe, explain, interpret, predict. If you can do what the line says out loud without notes, it is green.</p>
+    </header>
+    <div id="spec-app"></div>
+  </section>
+</section>
+
 <!-- ======================================================= SELF-TEST ======================================================= -->
 <section class="panel" id="panel-test" data-panel="test" hidden>
   <div class="opener">
-    <span class="eyebrow">Chapter 6 · Self-test</span>
+    <span class="eyebrow">Self-test</span>
     <h1>Test yourself</h1>
     <p class="lede">Three levels of retrieval: drill every pathway in Order mode, flip the rapid-recall cards, then answer quick questions. The full practice papers are in <a href="#exam">Exam papers</a>. Effortful recall, spaced over days, is what makes biomed stick.</p>
   </div>
@@ -3335,14 +3360,7 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
       <p>Every pathway in the atlas in one place. Pick one and rebuild it from memory: drag the cards into order, then check. Switch the cards to "Details only" for a harder version. A pathway is marked perfect when you get it right on the first check without hints; progress is saved on this device.</p>
     </header>
     <div class="fig-tools">
-      <div class="pill-btns" id="drill-filter" role="group" aria-label="Filter pathways">
-        <button class="pbtn" data-f="all" aria-pressed="true">All</button>
-        <button class="pbtn" data-f="msk" aria-pressed="false">MSK</button>
-        <button class="pbtn" data-f="blood" aria-pressed="false">Blood &amp; healing</button>
-        <button class="pbtn" data-f="immune" aria-pressed="false">Immunity</button>
-        <button class="pbtn" data-f="infect" aria-pressed="false">Infection &amp; drugs</button>
-        <button class="pbtn" data-f="todo" aria-pressed="false">Not yet perfect</button>
-      </div>
+      <span class="ex-row"><label class="sel-wrap">Chapter <select id="drill-filter" class="sel"></select></label><label class="ex-check"><input type="checkbox" id="drill-todo"> Only those not yet perfect</label></span>
       <span class="ex-row"><button class="btn ghost" id="drill-random" type="button">Random pathway</button><span class="small muted" id="drill-count"></span></span>
     </div>
     <div class="drill-layout">
@@ -3358,13 +3376,7 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
       <p>Say the answer out loud, then tap the card to check. "One at a time" works like a flashcard deck: cards you did not know come back a few cards later until you get them.</p>
     </header>
     <div class="fig-tools">
-      <div class="pill-btns" id="flip-filter" role="group" aria-label="Filter cards">
-        <button class="pbtn" data-f="all" aria-pressed="true">All</button>
-        <button class="pbtn" data-f="msk" aria-pressed="false">MSK</button>
-        <button class="pbtn" data-f="blood" aria-pressed="false">Blood &amp; healing</button>
-        <button class="pbtn" data-f="immune" aria-pressed="false">Immunity</button>
-        <button class="pbtn" data-f="infect" aria-pressed="false">Infection &amp; drugs</button>
-      </div>
+      <label class="sel-wrap">Chapter <select id="flip-filter" class="sel"></select></label>
       <div class="ex-row"><div class="seg" id="flip-mode" role="group" aria-label="Card view"><button type="button" data-v="grid" aria-pressed="true">Grid</button><button type="button" data-v="solo" aria-pressed="false">One at a time</button></div>
       <button class="btn ghost" id="flip-shuffle" type="button">Shuffle</button><button class="btn ghost" id="flip-reset" type="button">Hide all answers</button><span class="small muted" id="flip-count"></span></div>
     </div>
@@ -3376,16 +3388,11 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
     <header>
       <span class="eyebrow">Self-test · Questions</span>
       <h2>Quick questions</h2>
-      <p>Short warm-up questions with instant feedback. For full timed papers with 200 harder clinical questions, go to <a href="#exam">Exam papers</a>. Your score is kept on this device only. Revisit wrong answers tomorrow, then in three days, then in a week.</p>
+      <p>Every short question in the atlas with instant feedback: the warm-up set plus the "Check yourself" questions from each body-system chapter. Filter by chapter, or by the ones you got wrong. For full timed papers, go to <a href="#exam">Exam papers</a>. Your score is kept on this device only. Revisit wrong answers tomorrow, then in three days, then in a week.</p>
     </header>
     <div class="qz">
       <div class="qz-bar">
-        <div class="pill-btns" id="qz-filter" role="group" aria-label="Filter questions">
-          <button class="pbtn" data-f="all" aria-pressed="true">All</button>
-          <button class="pbtn" data-f="msk" aria-pressed="false">MSK</button>
-          <button class="pbtn" data-f="immune" aria-pressed="false">Immune &amp; lymphatic</button>
-          <button class="pbtn" data-f="wrong" aria-pressed="false">Got wrong</button>
-        </div>
+        <label class="sel-wrap">Show <select id="qz-filter" class="sel"></select></label>
         <div class="qz-score" id="qz-score">0 answered</div>
       </div>
       <div id="qz-list" class="qz"></div>
@@ -3407,9 +3414,9 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
 <!-- ======================================================= EXAM ======================================================= -->
 <section class="panel" id="panel-exam" data-panel="exam" hidden>
   <div class="opener">
-    <span class="eyebrow">Chapter 7 · Exam papers</span>
-    <h1>Two 100-question practice papers</h1>
-    <p class="lede">Clinical single best answer (AMK and SBA style) and short answer questions on blood, haemostasis, wound healing, immunity and infection. Choose timed or untimed, and whether to see the answer after each question or all at the end. Every question has an explanation of why the answer is right and why the tempting alternatives are wrong.</p>
+    <span class="eyebrow">Exam papers</span>
+    <h1>Practice papers</h1>
+    <p class="lede">Clinical single best answer (AMK and SBA style) and short answer questions. Papers A and B (100 questions each) cover blood, haemostasis, wound healing, immunity and infection; Paper C covers the body systems; custom sets mix any topics. Choose timed or untimed, and whether to see the answer after each question or all at the end. Every question has an explanation of why the answer is right and why the tempting alternatives are wrong.</p>
   </div>
   <section class="sec" id="exam-papers">
     <header>
@@ -3424,7 +3431,7 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
 <!-- ======================================================= SOURCES ======================================================= -->
 <section class="panel" id="panel-sources" data-panel="sources" hidden>
   <div class="opener">
-    <span class="eyebrow">Chapter 8 · Sources and slide checks</span>
+    <span class="eyebrow">Sources and slide checks</span>
     <h1>Sources and slide checks</h1>
     <p class="lede">Built from your MSK, Immune System and All Biomed peer-teaching decks and the Innate and Adaptive Immunity lectures, checked against standard references and current UK guidance. Where a slide disagreed with the references, the correction is listed here so you can fix your notes and cards.</p>
   </div>
@@ -3505,14 +3512,22 @@ td .up{color:var(--inhib);font-weight:700} td .down{color:var(--vein);font-weigh
   </section>
 </section>
 
-<footer class="foot">Biomed Pathway Atlas · built for BMBS Year 1, October 2026. Green arrows stimulate, red bars inhibit, dashed plum bars mark where drugs and diseases act.</footer>
+<footer class="foot">Biomed Pathway Atlas · built for BMBS Year 1, updated November 2026. Green arrows stimulate, red bars inhibit, dashed plum bars mark where drugs and diseases act.</footer>
   </main>
 </div>
-<script src="js/data.js?v=6"></script>
-<script src="js/data-immune.js?v=6"></script>
-<script src="js/exam-a.js?v=6"></script>
-<script src="js/exam-b.js?v=6"></script>
-<script src="js/app.js?v=6"></script>
+<script src="js/data.js?v=7"></script>
+<script src="js/data-immune.js?v=7"></script>
+<script src="js/exam-a.js?v=7"></script>
+<script src="js/exam-b.js?v=7"></script>
+<script src="js/ch-found.js?v=7"></script>
+<script src="js/ch-neuro.js?v=7"></script>
+<script src="js/ch-endo.js?v=7"></script>
+<script src="js/ch-resp.js?v=7"></script>
+<script src="js/ch-cardio.js?v=7"></script>
+<script src="js/ch-renal.js?v=7"></script>
+<script src="js/ch-gi.js?v=7"></script>
+<script src="js/spec.js?v=7"></script>
+<script src="js/app.js?v=7"></script>
 
 </body>
 </html>
