@@ -487,7 +487,7 @@ qs:[
 {sec:'renal-urology',type:'sba',q:'A 45-year-old man has sudden severe pain running from his left loin to his groin. He cannot keep still. The dipstick shows blood. Which is the best imaging test?',
  o:['Non-contrast CT of the kidneys, ureters and bladder','Plain abdominal X-ray','MRI of the pelvis','Intravenous urogram','Cystoscopy'],a:0,
  e:'Non-contrast CT detects almost all stones, including uric acid stones that are invisible on plain X-ray, and shows any obstruction. It should be done within 24 hours. Ultrasound is used in pregnancy and in children.'},
-{sec:'renal-urology',type:'sba',q:'A woman with repeated <i>Proteus</i> urinary infections has a large branching stone filling her renal pelvis. What is it most likely to be made of?',
+{sec:'renal-urology',type:'sba',q:'A woman with repeated Proteus urinary infections has a large branching stone filling her renal pelvis. What is it most likely to be made of?',
  o:['Struvite (magnesium ammonium phosphate)','Calcium oxalate','Uric acid','Cystine','Xanthine'],a:0,
  e:'Proteus makes urease, which splits urea into ammonia. The urine becomes alkaline and magnesium ammonium phosphate precipitates, forming staghorn stones that in turn shelter the bacteria.'},
 {sec:'renal-urology',type:'sba',q:'A 58-year-old woman leaks small amounts of urine when she coughs or sneezes. Examination and urinalysis are normal. What is the first-line treatment?',

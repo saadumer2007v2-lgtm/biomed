@@ -465,8 +465,10 @@ const LETTER='ABCDE';
 function renderExam(){
   const root=$('#exam-app'); if(!root) return;
   const PAPERS=window.EXAM_PAPERS||{};
-  const cq=[]; Object.keys(CH).forEach(k=>(CH[k].qs||[]).forEach(q=>cq.push(q)));
-  if(cq.length&&!PAPERS.C) PAPERS.C={title:'Paper C: body systems',blurb:'Nervous system, endocrine and reproduction, respiratory, cardiovascular, renal, GI and core cell science. The same questions as the "Check yourself" boxes inside those chapters.',qs:cq};
+  /* The chapter questions are dealt in turn into three mixed papers, so each covers every system and none is unmanageably long */
+  const cq=[]; SYSTEMS.concat(Object.keys(CH).filter(k=>!SYSTEMS.includes(k))).forEach(k=>((CH[k]||{}).qs||[]).forEach(q=>cq.push(q)));
+  if(cq.length&&!PAPERS.C){const deal=[[],[],[]]; cq.forEach((q,i)=>deal[i%3].push(q));
+    ['C','D','E'].forEach((L,i)=>{if(deal[i].length) PAPERS[L]={title:'Paper '+L+': body systems',blurb:'A mix across cell science, nervous system, endocrine and reproduction, respiratory, cardiovascular, renal and GI. Drawn from the "Check yourself" questions inside those chapters; papers C, D and E do not share questions.',qs:deal[i]};});}
   const pool=[], byId={};
   /* Spread the correct answers across positions with a fixed per-question seed, so the order is stable between visits */
   const seeded=(seed,arr)=>{let x=seed>>>0||1; const r=()=>{x^=x<<13; x>>>=0; x^=x>>>17; x^=x<<5; x>>>=0; return x/4294967296;};
@@ -784,7 +786,7 @@ function renderChapters(){
     (c.flips||[]).forEach(f=>FLIPS.push([k,f[0],f[1]]));
     const n={}; (c.qs||[]).forEach(q=>{n[q.sec]=(n[q.sec]||0)+1;});
     panel.innerHTML=`<div class="opener"><span class="eyebrow">${c.eyebrow}</span><h1>${c.h1}</h1><p class="lede">${c.lede}</p></div>`+
-      c.secs.map(s=>`<section class="sec" id="${s.id}"><header><span class="eyebrow">${c.short} · ${s.eb}</span><h2>${s.h}</h2>${s.p?`<p>${s.p}</p>`:''}</header>${s.b.map(blockHTML).join('')}${n[s.id]?`<div class="chk" data-ch="${k}" data-sec="${s.id}"><div class="chk-head"><h3>Check yourself</h3><span class="small muted">${n[s.id]} question${n[s.id]===1?'':'s'} on this section. Your answers are saved on this device and also appear in Self-test and Paper C.</span></div><div class="qz"></div></div>`:''}</section>`).join('');
+      c.secs.map(s=>`<section class="sec" id="${s.id}"><header><span class="eyebrow">${c.short} · ${s.eb}</span><h2>${s.h}</h2>${s.p?`<p>${s.p}</p>`:''}</header>${s.b.map(blockHTML).join('')}${n[s.id]?`<div class="chk" data-ch="${k}" data-sec="${s.id}"><div class="chk-head"><h3>Check yourself</h3><span class="small muted">${n[s.id]} question${n[s.id]===1?'':'s'} on this section. Your answers are saved on this device. The same questions appear in Self-test and in exam papers C to E.</span></div><div class="qz"></div></div>`:''}</section>`).join('');
   });
   const fx=$('#panel-sources .fixes');
   if(fx&&FIXES.length) fx.insertAdjacentHTML('beforeend',FIXES.map(f=>`<div class="note fix"><span class="tag">${f[0]}</span><p>${f[1]}</p></div>`).join(''));

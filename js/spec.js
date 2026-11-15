@@ -1,0 +1,622 @@
+/* The unofficial spec: every point worth being able to explain, block by block.
+   Shape: {ch, title, groups:[{t, sec, items:[text | [text, tag]]}]}  tag: c = clinical link, d = drug, x = data or calculation.
+   Ratings are stored against a hash of the item text, so rewording an item resets its rating. */
+window.SPEC=[
+/* ================================================================== */
+{ch:'found',title:'Cells, genes and drugs',groups:[
+ {t:'Receptors and second messengers',sec:'found-signal',items:[
+  'Name the four families of receptor and say how fast each acts, with an example of each',
+  'Describe how a G protein-coupled receptor passes on its signal, and how the signal is switched off',
+  'State which second messenger G<sub>s</sub>, G<sub>i</sub> and G<sub>q</sub> each control, and name receptors that use each',
+  'Put the steps of a G<sub>s</sub> (cAMP) and a G<sub>q</sub> (IP₃, calcium) cascade in order',
+  'Explain what kinases and phosphatases do, and what phosphodiesterase does',
+  'Describe how receptor tyrosine kinases work, using the insulin receptor',
+  'Explain why steroid and thyroid hormones act slowly',
+  'Describe gap junctions and where they matter (heart, smooth muscle)',
+  ['Explain how cholera toxin, and receptor mutations in cancer, leave signalling stuck "on"','c']]},
+ {t:'Making ATP',sec:'found-energy',items:[
+  'Name the four stages of glucose oxidation, where each happens and roughly how much ATP each yields',
+  'Explain why oxygen is needed, and what happens to pyruvate without it',
+  'Explain why fat cannot be converted to glucose',
+  'Order the steps of the electron transport chain and explain the proton gradient',
+  'Describe how fatty acids and amino acids enter the pathway, and when ketones are made',
+  'Describe how the body switches fuel from the fed state to prolonged fasting',
+  'Describe the structure of a mitochondrion and why its DNA is inherited from the mother',
+  ['Explain how cyanide, carbon monoxide and uncouplers such as dinitrophenol affect ATP production','c'],
+  ['Explain what a raised blood lactate means','c'],
+  'Explain what reactive oxygen species are, where they come from and how cells defend against them']},
+ {t:'Genes, proteins and inheritance',sec:'found-genes',items:[
+  'Order the steps from gene to finished protein: transcription, RNA processing, translation, folding',
+  'Explain what exons, introns, promoters and codons are',
+  'Explain how chromatin packing and DNA methylation control which genes are read',
+  'Describe how misfolded proteins are dealt with, using cystic fibrosis as the example',
+  'Define silent, missense, nonsense, frameshift and triplet repeat mutations, with an example of each',
+  'Compare mitosis and meiosis, and explain non-disjunction',
+  'Recognise autosomal dominant, autosomal recessive, X-linked recessive and mitochondrial inheritance from a family history',
+  ['Work out the risk to a child for each inheritance pattern, and the carrier risk of a healthy sibling','x'],
+  ['Describe the features of Down\'s, Turner and Klinefelter syndromes','c'],
+  'Distinguish apoptosis from necrosis']},
+ {t:'Pharmacokinetics',sec:'found-pk',items:[
+  'Explain absorption, distribution, metabolism and excretion, and what affects each',
+  'Explain why only un-ionised, unbound drug crosses membranes and acts',
+  'Define bioavailability, and explain first-pass metabolism',
+  'Define volume of distribution and say what a very large value means',
+  'Define clearance and half-life and how they are related',
+  'Explain why steady state takes 4 to 5 half-lives, and when a loading dose is needed',
+  'Compare first-order and zero-order elimination, naming zero-order drugs',
+  ['Calculate a loading dose, a maintenance dose rate and the amount of drug left after a number of half-lives','x'],
+  ['Explain why doses change in kidney impairment','c']]},
+ {t:'Pharmacodynamics',sec:'found-pd',items:[
+  'List the four kinds of protein target for drugs, with examples',
+  'Define affinity, efficacy and potency',
+  'Read efficacy and EC₅₀ from a dose–response curve',
+  'Describe how a partial agonist, a competitive antagonist and an irreversible antagonist change the curve',
+  ['Explain why aspirin and omeprazole act for much longer than their half-lives','d'],
+  'Define therapeutic index and list drugs with a narrow one that need monitoring',
+  'Explain desensitisation, tolerance and dependence',
+  ['Distinguish type A from type B adverse drug reactions','c']]},
+ {t:'Drug metabolism and interactions',sec:'found-metab',items:[
+  'Describe phase I and phase II metabolism and what each achieves',
+  'Explain what a prodrug is, with examples',
+  ['List the common enzyme inducers and inhibitors and predict their effect on warfarin, the contraceptive pill and statins','d'],
+  ['Order the events of paracetamol overdose and explain how acetylcysteine works','d'],
+  'Explain how genetic differences (CYP2D6, TPMT, G6PD) change drug response',
+  'Distinguish pharmacokinetic from pharmacodynamic interactions',
+  ['State which patients need dose changes: older people, kidney and liver disease, pregnancy, children','c']]}
+]},
+/* ================================================================== */
+{ch:'msk',title:'Musculoskeletal',groups:[
+ {t:'Bone structure',sec:'bone',items:[
+  'Describe what bone matrix is made of: type I collagen (osteoid) and hydroxyapatite, and what each contributes',
+  'State the origin and job of osteoblasts, osteocytes and osteoclasts',
+  'Compare compact (cortical) and spongy (trabecular) bone, and describe an osteon',
+  'Label the parts of a long bone: epiphysis, growth plate, metaphysis, diaphysis, periosteum',
+  'Explain how RANKL and osteoprotegerin control osteoclasts']},
+ {t:'Bone formation and growth',sec:'growth',items:[
+  'Compare intramembranous and endochondral ossification and say which bones use each',
+  'Order the zones of the growth plate and say what happens in each',
+  'Explain how growth hormone, IGF-1, thyroid hormone and sex steroids affect growth and closure of the plate',
+  ['Compare gigantism and acromegaly, and explain achondroplasia','c']]},
+ {t:'Remodelling and fracture healing',sec:'remodel',items:[
+  'Order the steps of the bone remodelling cycle',
+  'Explain Wolff\'s law',
+  'Order the stages of fracture healing: haematoma, soft callus, hard callus, remodelling',
+  ['List the things that delay fracture healing','c']]},
+ {t:'Calcium and phosphate',sec:'calcium',items:[
+  'Describe the three organs and three hormones that control plasma calcium',
+  'Explain what PTH does to bone, kidney and (through vitamin D) gut',
+  'Order the steps of vitamin D activation: skin, liver, kidney',
+  'State what calcitonin does',
+  ['Predict calcium, phosphate, PTH and ALP in primary hyperparathyroidism, vitamin D deficiency and kidney failure','x']]},
+ {t:'Bone disease',sec:'bone-disease',items:[
+  ['Define osteoporosis, list its risk factors and explain the T-score','c'],
+  ['Compare osteoporosis, osteomalacia or rickets, and Paget\'s disease by cause and blood results','c'],
+  ['Describe osteomyelitis and its usual organism','c'],
+  ['Describe how bone tumours and metastases present','c']]},
+ {t:'Muscle',sec:'muscle',items:[
+  'Compare skeletal, cardiac and smooth muscle',
+  'Describe the sarcomere and what happens to the A, I and H bands on contraction',
+  'Order the events at the neuromuscular junction',
+  'Order the steps of excitation–contraction coupling and the cross-bridge cycle',
+  'Explain the roles of calcium, troponin, tropomyosin and ATP, and why rigor mortis occurs',
+  'Describe a motor unit, recruitment and the three fibre types',
+  'List where muscle gets its ATP in the first seconds, minutes and hours of exercise']},
+ {t:'Diseases of nerve, junction and muscle',sec:'muscle-disease',items:[
+  ['Explain myasthenia gravis and Lambert–Eaton syndrome and how they differ','c'],
+  ['Explain how botulinum toxin, tetanus toxin and organophosphates act','c'],
+  ['Describe Duchenne muscular dystrophy: gene, inheritance and features','c'],
+  ['Explain compartment syndrome and rhabdomyolysis','c']]},
+ {t:'Cartilage and arthritis',sec:'cartilage',items:[
+  'Name the three types of cartilage, where each is found and why cartilage heals poorly',
+  'Describe a synovial joint',
+  ['Compare osteoarthritis and rheumatoid arthritis: cause, joints, symptoms, X-ray signs','c'],
+  ['Describe gout and septic arthritis','c']]},
+ {t:'Drugs',sec:'msk-drugs',items:[
+  ['Explain how NSAIDs work (COX-1, COX-2) and their side effects on stomach, kidney and heart','d'],
+  ['Describe the WHO pain ladder and how paracetamol and opioids fit','d'],
+  ['Explain how bisphosphonates, denosumab and vitamin D treat bone disease','d'],
+  ['Compare depolarising and non-depolarising muscle relaxants and how they are reversed','d'],
+  ['Explain how methotrexate and biological drugs treat rheumatoid arthritis','d']]},
+ {t:'Imaging',sec:'imaging',items:[
+  'State what X-ray, CT, MRI, ultrasound, DEXA and bone scans each show best',
+  ['Describe a fracture on an X-ray in a systematic way','x']]}
+]},
+/* ================================================================== */
+{ch:'blood',title:'Blood and healing',groups:[
+ {t:'Blood cells',sec:'blood',items:[
+  'List the components of blood and the normal haematocrit',
+  'Describe haematopoiesis: the myeloid and lymphoid lines and the growth factors that drive them',
+  'Describe the structure, lifespan and job of red cells, and how erythropoietin controls their number',
+  'State the job of each white cell type and what a raised count of each suggests',
+  'Describe how platelets are made and what they contain',
+  ['Interpret a full blood count: haemoglobin, MCV, white cells, platelets','x']]},
+ {t:'Haemostasis',sec:'haemostasis',items:[
+  'Name the four stages: vascular spasm, platelet plug, coagulation, fibrinolysis',
+  'Order the steps of platelet adhesion, activation and aggregation (von Willebrand factor, ADP, thromboxane, GP IIb/IIIa)',
+  'Describe the intrinsic, extrinsic and common pathways and which test measures each (APTT, PT)',
+  'Explain the roles of thrombin, fibrinogen and factor XIII',
+  'Explain how antithrombin, protein C and protein S, and plasmin limit clotting',
+  'Name the vitamin K-dependent factors',
+  'State Virchow\'s triad',
+  ['Explain haemophilia A and B, von Willebrand disease and DIC','c'],
+  ['Explain how aspirin, clopidogrel, heparin, warfarin, DOACs and alteplase act and how each is reversed or monitored','d']]},
+ {t:'Wound healing',sec:'wound',items:[
+  'Order the four phases: haemostasis, inflammation, proliferation, remodelling, with timings',
+  'Describe what happens in proliferation: granulation tissue, angiogenesis, fibroblasts, re-epithelialisation, contraction',
+  'Describe remodelling: type III collagen replaced by type I, and final scar strength',
+  'Compare healing by primary and secondary intention',
+  ['List local and general factors that impair healing','c'],
+  ['Distinguish hypertrophic scars from keloids','c']]}
+]},
+/* ================================================================== */
+{ch:'immune',title:'Immunity',groups:[
+ {t:'The lymphatic system',sec:'lymph',items:[
+  'State the three jobs of the lymphatic system',
+  'Trace lymph from tissue to the venous angle, and say which regions drain to the thoracic duct and to the right lymphatic duct',
+  'Describe the structure of a lymph node and where B and T cells sit',
+  'Distinguish primary from secondary lymphoid organs',
+  'State the functions of the spleen and the risks after its removal',
+  ['Explain lymphoedema and why cancers spread to particular nodes','c']]},
+ {t:'Innate immunity',sec:'innate',items:[
+  'List the physical and chemical barriers',
+  'Explain how pattern recognition receptors (such as toll-like receptors) detect microbes',
+  'State the role of neutrophils, macrophages, dendritic cells, NK cells, mast cells and eosinophils',
+  'Order the steps of phagocytosis, including the respiratory burst',
+  'Name the main cytokines (IL-1, IL-6, TNF-α, interferons) and what they do',
+  'Explain the acute phase response and CRP']},
+ {t:'Inflammation',sec:'inflammation',items:[
+  'Explain the five cardinal signs in terms of vessels and mediators',
+  'Order the vascular and cellular events: vasodilation, increased permeability, margination, rolling, adhesion, transmigration, chemotaxis',
+  'Name the mediators: histamine, prostaglandins, leukotrienes, bradykinin, complement',
+  'Describe how inflammation resolves, and its other outcomes: abscess, chronic inflammation, fibrosis',
+  'Compare acute and chronic inflammation, and describe a granuloma',
+  ['Define sepsis and explain how it causes shock','c']]},
+ {t:'Complement',sec:'complement',items:[
+  'Describe what triggers the classical, lectin and alternative pathways',
+  'State what C3 convertase does and why C3 is central',
+  'Explain the three outcomes: opsonisation (C3b), inflammation (C3a, C5a), lysis (membrane attack complex)',
+  ['Link complement deficiencies to the infections they cause','c']]},
+ {t:'Adaptive immunity',sec:'adaptive',items:[
+  'Compare innate and adaptive immunity',
+  'Explain antigen presentation on MHC class I and class II and which T cell reads each',
+  'Describe T cell activation: the two signals',
+  'State the roles of Th1, Th2, Th17, regulatory and cytotoxic T cells',
+  'Describe B cell activation, class switching, affinity maturation and plasma and memory cells',
+  'Explain central and peripheral tolerance',
+  'Compare the primary and secondary immune response']},
+ {t:'Antibodies',sec:'antibodies',items:[
+  'Draw an antibody and label heavy and light chains, Fab and Fc',
+  'State where each class is found and what it does: IgM, IgG, IgA, IgE, IgD',
+  'List the ways antibodies work: neutralisation, opsonisation, complement activation, agglutination, antibody-dependent killing',
+  'Explain which antibody crosses the placenta and which is in breast milk',
+  ['Explain what monoclonal antibody drugs are and how their names are built','d']]},
+ {t:'Vaccines',sec:'vaccines',items:[
+  'Compare active and passive immunity, natural and artificial',
+  'Compare live attenuated, inactivated, subunit, toxoid, conjugate and mRNA vaccines, with examples',
+  'Explain herd immunity',
+  ['Say who must not be given live vaccines','c']]},
+ {t:'Tying it together',sec:'together',items:[
+  'Follow a bacterial infection from breach of the skin to antibody production and memory',
+  'Follow a viral infection: interferons, NK cells, cytotoxic T cells, antibody',
+  'Explain how innate and adaptive immunity depend on each other']},
+ {t:'When immunity goes wrong',sec:'hypersens',items:[
+  ['Describe the four types of hypersensitivity, with mechanism, timing and examples','c'],
+  ['Order the events of anaphylaxis and state its treatment','c'],
+  ['Explain how autoimmunity arises, with examples','c'],
+  ['Compare primary and secondary immunodeficiency','c'],
+  ['Describe hyperacute, acute and chronic transplant rejection','c']]}
+]},
+/* ================================================================== */
+{ch:'infect',title:'Infection and antimicrobials',groups:[
+ {t:'Microorganisms',sec:'micro',items:[
+  'Compare bacteria, viruses, fungi, protozoa, helminths and prions',
+  'Explain the Gram stain and the difference between Gram-positive and Gram-negative cell walls',
+  'Classify common bacteria by Gram stain and shape',
+  'Describe bacterial virulence factors: adhesins, capsules, exotoxins, endotoxin',
+  'Describe the structure of a virus and the steps of viral replication',
+  'Define commensal, pathogen, colonisation and opportunistic infection']},
+ {t:'Pathogens and the response to them',sec:'pathogens',items:[
+  'Explain how the immune response differs for extracellular bacteria, intracellular bacteria, viruses, fungi and parasites',
+  'Link symptoms (fever, pus, rash, swollen nodes) to the immune events behind them',
+  ['Describe common infections by organism: <i>Staph. aureus</i>, <i>Strep. pyogenes</i>, <i>E. coli</i>, <i>C. difficile</i>, TB, influenza, HIV, <i>Candida</i>, malaria','c'],
+  'Explain antigenic drift and shift in influenza']},
+ {t:'Diagnosing infection',sec:'diagnosis',items:[
+  'Explain what microscopy, culture and sensitivity, antigen tests, PCR and serology each tell you',
+  ['Interpret white cell count, CRP and lactate in infection','x'],
+  ['Describe how and when to take blood cultures','c']]},
+ {t:'Antimicrobials',sec:'antimicrobials',items:[
+  ['Group antibiotics by target: cell wall, protein synthesis (30S, 50S), DNA, folate','d'],
+  ['Give examples, spectrum and key side effects of penicillins, cephalosporins, glycopeptides, macrolides, tetracyclines, aminoglycosides, quinolones, trimethoprim and metronidazole','d'],
+  'Distinguish bactericidal from bacteriostatic drugs',
+  'Explain the mechanisms of antibiotic resistance and how resistance spreads (MRSA, ESBL)',
+  'State the principles of antimicrobial stewardship',
+  ['Explain how aciclovir, oseltamivir and antiretroviral drugs act','d'],
+  ['Explain how azoles, amphotericin and echinocandins act','d'],
+  ['Manage penicillin allergy','c']]},
+ {t:'Preventing infection',sec:'ipc',items:[
+  'Describe the chain of infection and how to break it',
+  'State the five moments for hand hygiene, and when soap and water must be used',
+  'Compare standard, contact, droplet and airborne precautions',
+  'Define cleaning, disinfection and sterilisation']},
+ {t:'Temperature',sec:'temperature',items:[
+  'Describe how the hypothalamus controls body temperature and the ways heat is gained and lost',
+  'Order the steps by which infection causes fever, and explain how paracetamol and NSAIDs lower it',
+  ['Distinguish fever from hyperthermia and describe heat stroke','c'],
+  ['Describe the stages and treatment of hypothermia','c']]}
+]},
+/* ================================================================== */
+{ch:'neuro',title:'Nervous system',groups:[
+ {t:'Neurons, glia and myelin',sec:'neuro-cells',items:[
+  'Label a neuron and state what each part does',
+  'State the job of astrocytes, oligodendrocytes, Schwann cells, microglia and ependymal cells',
+  'Explain how myelin speeds conduction (saltatory conduction)',
+  'Outline neurulation and what the neural tube and neural crest become',
+  ['Compare multiple sclerosis and Guillain–Barré syndrome; explain neural tube defects and folic acid','c']]},
+ {t:'Resting and action potentials',sec:'neuro-ap',items:[
+  'Explain how the resting membrane potential is set up (potassium leak, Na⁺/K⁺-ATPase)',
+  'Order the phases of the action potential and the channels responsible',
+  'Explain threshold, the all-or-nothing rule and the refractory periods',
+  'Explain what determines conduction velocity',
+  ['Explain how local anaesthetics work and how potassium and calcium disturbances affect excitability','d']]},
+ {t:'Synapses and neurotransmitters',sec:'neuro-synapse',items:[
+  'Order the steps of transmission at a chemical synapse',
+  'Distinguish excitatory from inhibitory postsynaptic potentials, and temporal from spatial summation',
+  'State the main actions of glutamate, GABA, acetylcholine, dopamine, noradrenaline and serotonin',
+  'Explain how transmitters are removed from the synapse',
+  ['Link drugs to synapses: benzodiazepines, SSRIs, levodopa, acetylcholinesterase inhibitors','d']]},
+ {t:'Spinal cord, tracts and lesions',sec:'neuro-tracts',items:[
+  'Trace the dorsal column, spinothalamic and corticospinal tracts and say where each crosses',
+  'Order the steps of the stretch reflex',
+  ['Compare upper and lower motor neuron lesions','c'],
+  ['Predict the deficits in Brown-Séquard syndrome, anterior cord syndrome, syringomyelia and posterior cord lesions','c'],
+  'Use dermatomes and myotomes to locate a lesion']},
+ {t:'Autonomic nervous system',sec:'neuro-ans',items:[
+  'Compare the sympathetic and parasympathetic systems: origin, ganglia, transmitters',
+  'State the receptor (α₁, α₂, β₁, β₂, M, nicotinic) and effect in each major organ',
+  ['Predict the effects and side effects of adrenergic and muscarinic agonists and antagonists','d'],
+  ['Explain Horner\'s syndrome','c']]},
+ {t:'Touch and pain',sec:'neuro-pain',items:[
+  'Match sensory receptors and fibre types (Aβ, Aδ, C) to what they detect',
+  'Order the pain pathway from nociceptor to cortex',
+  'Explain gate control and descending inhibition',
+  'Explain referred pain and neuropathic pain',
+  ['Explain where NSAIDs, opioids, local anaesthetics and gabapentinoids act','d']]},
+ {t:'Hearing and balance',sec:'neuro-senses',items:[
+  'Order the steps from sound wave to nerve impulse',
+  'Explain how the cochlea separates pitch',
+  'Explain how the semicircular canals and otolith organs detect movement',
+  ['Compare conductive and sensorineural hearing loss using Rinne\'s and Weber\'s tests','c'],
+  ['Describe vertigo and its common causes','c']]},
+ {t:'CSF and intracranial pressure',sec:'neuro-icp',items:[
+  'Trace CSF from choroid plexus to arachnoid granulations',
+  'State the Monro–Kellie doctrine and the formula for cerebral perfusion pressure',
+  ['Order the events as intracranial pressure rises, including Cushing\'s reflex and coning','c'],
+  ['Compare extradural, subdural and subarachnoid haemorrhage','c'],
+  ['Explain hydrocephalus and the treatment of raised intracranial pressure','c'],
+  'Describe the blood–brain barrier']}
+]},
+/* ================================================================== */
+{ch:'endo',title:'Endocrine and reproduction',groups:[
+ {t:'Hormones and the pituitary',sec:'endo-axes',items:[
+  'Compare peptide, steroid and amine hormones: storage, transport, receptor, speed',
+  'Explain negative feedback and draw a hypothalamic–pituitary–target axis',
+  'List the anterior and posterior pituitary hormones and what controls each',
+  'Describe the growth hormone axis and the actions of GH and IGF-1',
+  ['Use hormone levels to tell a primary from a secondary gland failure','x'],
+  ['Describe acromegaly, prolactinoma and hypopituitarism','c']]},
+ {t:'Adrenal glands',sec:'endo-adrenal',items:[
+  'Name the zones of the adrenal cortex and the medulla, and the hormone each makes',
+  'Describe the HPA axis and the actions of cortisol',
+  'Describe what controls aldosterone and what it does',
+  ['Compare Cushing\'s syndrome, Addison\'s disease, Conn\'s syndrome and phaeochromocytoma','c'],
+  ['Recognise and treat an Addisonian crisis; state the sick day rules for steroids','c'],
+  ['List the side effects of long-term corticosteroids','d']]},
+ {t:'Thyroid',sec:'endo-thyroid',items:[
+  'Order the steps of thyroid hormone synthesis',
+  'Describe the HPT axis and the difference between T3 and T4',
+  'List the actions of thyroid hormone',
+  ['Compare hyper- and hypothyroidism: symptoms, causes (Graves\', Hashimoto\'s), blood tests','c'],
+  ['Explain how carbimazole, propranolol, radioiodine and levothyroxine are used','d']]},
+ {t:'Glucose and diabetes',sec:'endo-glucose',items:[
+  'Order the steps of insulin release from the β cell',
+  'List the actions of insulin and of glucagon on liver, muscle and fat',
+  ['Compare type 1 and type 2 diabetes','c'],
+  ['State the diagnostic thresholds for diabetes (fasting glucose, HbA1c)','x'],
+  ['Order the events of diabetic ketoacidosis and outline its treatment; compare with hyperosmolar hyperglycaemic state','c'],
+  ['Recognise and treat hypoglycaemia','c'],
+  ['Explain how metformin, sulfonylureas, SGLT2 inhibitors, GLP-1 agonists, DPP-4 inhibitors and insulins act','d'],
+  ['List the microvascular and macrovascular complications of diabetes','c']]},
+ {t:'Gonadal axis and gametes',sec:'repro-axis',items:[
+  'Draw the male and female HPG axes, with the roles of FSH, LH, inhibin, testosterone and oestrogen',
+  'State what Sertoli and Leydig cells do',
+  'Order the stages of spermatogenesis and of oogenesis, including when meiosis pauses',
+  'Describe the events and order of puberty in boys and girls',
+  ['Describe precocious and delayed puberty','c']]},
+ {t:'Menstrual cycle',sec:'repro-cycle',items:[
+  'Describe the follicular, ovulatory and luteal phases of the ovarian cycle',
+  'Describe the menstrual, proliferative and secretory phases of the uterine cycle',
+  'Explain the switch from negative to positive feedback that causes the LH surge',
+  'Explain what happens to the corpus luteum with and without pregnancy',
+  ['Explain how hormonal contraception works','d'],
+  ['Describe the menopause and polycystic ovary syndrome','c']]},
+ {t:'Fertilisation and the embryo',sec:'repro-embryo',items:[
+  'Order the steps of fertilisation, including capacitation, the acrosome reaction and the block to polyspermy',
+  'Order the first three weeks: morula, blastocyst, implantation, bilaminar then trilaminar disc',
+  'List what each germ layer becomes',
+  'Explain sexual differentiation: SRY, the Wolffian and Müllerian ducts',
+  ['Explain ectopic pregnancy and what hCG tells you','c']]},
+ {t:'Pregnancy, labour and the newborn',sec:'repro-pregnancy',items:[
+  'Describe the placenta and the hormones it makes (hCG, progesterone, oestrogen, hPL)',
+  'List the changes in the mother\'s heart, blood, lungs, kidneys and metabolism',
+  'Explain how labour starts and sustains itself (positive feedback) and its three stages',
+  'Trace oxygenated blood through the fetal circulation and its three shunts',
+  'Order the circulatory changes at birth',
+  ['Describe pre-eclampsia and gestational diabetes','c'],
+  ['List the infections that harm the fetus or newborn and how they are prevented','c']]}
+]},
+/* ================================================================== */
+{ch:'resp',title:'Respiratory',groups:[
+ {t:'Mechanics of breathing',sec:'resp-mech',items:[
+  'Order the steps of quiet inspiration and expiration and name the muscles involved',
+  'Explain Boyle\'s law and the roles of alveolar, intrapleural and transpulmonary pressure',
+  'Define compliance and say what raises and lowers it',
+  'Explain what surfactant is, which cell makes it and what it does',
+  'Explain what determines airway resistance',
+  ['Explain pneumothorax and recognise a tension pneumothorax','c']]},
+ {t:'Lung volumes and tests',sec:'resp-volumes',items:[
+  'Define the four lung volumes and four capacities, and say which cannot be measured by spirometry',
+  ['Calculate minute ventilation and alveolar ventilation','x'],
+  'Explain FEV₁, FVC, peak flow, transfer factor and FeNO',
+  ['Tell obstructive from restrictive disease using FEV₁/FVC','x'],
+  'Recognise normal, obstructive, restrictive and fixed-obstruction flow–volume loops']},
+ {t:'Gas exchange',sec:'resp-gas',items:[
+  'Follow oxygen from air to mitochondria (the oxygen cascade)',
+  'List the factors in Fick\'s law that set the rate of diffusion',
+  'Explain ventilation–perfusion matching, dead space and shunt',
+  'Explain hypoxic pulmonary vasoconstriction',
+  ['List the five causes of hypoxaemia and say which respond to oxygen','c']]},
+ {t:'Carrying gases',sec:'resp-transport',items:[
+  'Describe haemoglobin and cooperative binding',
+  'Draw the oxygen dissociation curve and explain what shifts it right and left',
+  'Compare adult and fetal haemoglobin and myoglobin',
+  'List the three ways CO₂ is carried and explain the chloride shift',
+  ['Explain carbon monoxide poisoning and what a pulse oximeter cannot tell you','c']]},
+ {t:'Control of breathing',sec:'resp-control',items:[
+  'Name the respiratory centres of the medulla and pons',
+  'Compare central and peripheral chemoreceptors: where they are and what they sense',
+  'Explain why CO₂ is the main drive to breathe',
+  ['Explain the risk of uncontrolled oxygen in people who retain CO₂, and the target saturations','c'],
+  ['Define type 1 and type 2 respiratory failure','x']]},
+ {t:'Airway disease',sec:'resp-airways',items:[
+  ['Order the early and late phases of an asthma attack','c'],
+  ['Compare asthma and COPD: cause, pattern, inflammation, reversibility','c'],
+  ['Describe emphysema and chronic bronchitis','c'],
+  ['Explain how SABA, LABA, inhaled steroids, antimuscarinics, montelukast and theophylline act','d'],
+  ['Grade an acute asthma attack and outline its treatment','c'],
+  ['Explain how a CFTR mutation causes the features of cystic fibrosis','c']]},
+ {t:'Infections and emergencies',sec:'resp-infection',items:[
+  ['Name the usual organisms of community and hospital pneumonia and score severity with CURB-65','c'],
+  ['Describe tuberculosis: spread, primary and reactivation disease, diagnosis and treatment','c'],
+  ['Describe pulmonary embolism: risk factors, features, tests and treatment','c'],
+  ['Recognise bronchiolitis, croup and epiglottitis','c'],
+  ['Explain wheeze, stridor and the sneeze and cough reflexes','c']]}
+]},
+/* ================================================================== */
+{ch:'cardio',title:'Cardiovascular',groups:[
+ {t:'Blood flow',sec:'cardio-flow',items:[
+  'State the relation between flow, pressure and resistance, and Poiseuille\'s law',
+  'Explain why arterioles are the main site of resistance',
+  'List what constricts and what dilates arterioles, with receptors',
+  'Order the steps of the myogenic response and of active hyperaemia',
+  'Describe what is special about the coronary, cerebral, skin and pulmonary circulations',
+  'Explain Starling forces at the capillary and the four mechanisms of oedema',
+  'Explain what aids venous return',
+  ['Classify shock and list its early signs','c']]},
+ {t:'Cardiac cycle',sec:'cardio-cycle',items:[
+  'Order the phases of the cardiac cycle and say which valves are open in each',
+  'Read a Wiggers diagram: pressures, volume, ECG and heart sounds together',
+  'Explain what causes each of the four heart sounds',
+  'Describe the JVP waveform and what changes it',
+  ['Calculate stroke volume, ejection fraction and cardiac output; state normal pressures in each chamber','x'],
+  ['Match the common murmurs to their timing and valve','c']]},
+ {t:'Electrical activity',sec:'cardio-electric',items:[
+  'Order the conduction pathway and explain why the AV node delays the impulse',
+  'Describe the phases of the ventricular action potential and the ion behind each',
+  'Describe the pacemaker potential and how the autonomic nerves change heart rate',
+  'Order the steps of cardiac excitation–contraction coupling and say how it differs from skeletal muscle',
+  'Explain why cardiac muscle cannot be tetanised',
+  ['Explain how digoxin works and what makes it toxic','d'],
+  ['Name the four classes of antiarrhythmic drug and what each blocks','d']]},
+ {t:'ECG and arrhythmias',sec:'cardio-ecg',items:[
+  'State what the P wave, PR interval, QRS, ST segment, T wave and QT interval represent, with normal durations',
+  ['Work out heart rate from an ECG and read it in a set order','x'],
+  'Match ECG leads to territories and coronary arteries',
+  ['Recognise sinus rhythm, the three degrees of heart block, AF, flutter, VT, VF, ST elevation and hyperkalaemia','c'],
+  ['Explain how AF causes stroke and outline rate control, rhythm control and anticoagulation','c'],
+  ['Tell left from right bundle branch block','c'],
+  ['State which arrest rhythms are shockable; treat hyperkalaemia','c']]},
+ {t:'Cardiac output',sec:'cardio-output',items:[
+  'Define preload, afterload and contractility and say what changes each',
+  'State the Frank–Starling law and distinguish it from a change in contractility',
+  'Draw a pressure–volume loop and show the effect of more preload, more afterload and more contractility',
+  ['Calculate mean arterial pressure and pulse pressure','x'],
+  'Order the cardiovascular responses to exercise',
+  ['Describe aortic stenosis','c']]},
+ {t:'Blood pressure',sec:'cardio-bp',items:[
+  'Order the steps of the baroreceptor reflex on standing',
+  'Order the steps of the renin–angiotensin–aldosterone system and the triggers for renin release',
+  'State what ADH, ANP and BNP do to blood pressure',
+  ['State the thresholds for diagnosing and staging hypertension','x'],
+  ['List the causes of secondary hypertension and the organs hypertension damages','c'],
+  ['Explain how ACE inhibitors, ARBs, calcium channel blockers, thiazides, β-blockers, α-blockers and spironolactone work, with their side effects','d'],
+  ['Follow the NICE steps for choosing antihypertensives','d'],
+  ['Explain postural hypotension','c']]},
+ {t:'Coronary disease',sec:'cardio-ihd',items:[
+  'Order the steps of atherosclerosis from endothelial injury to plaque rupture',
+  'List fixed and modifiable risk factors',
+  ['Compare stable angina, unstable angina, NSTEMI and STEMI by plaque, ECG and troponin','c'],
+  ['Outline the immediate and long-term treatment of an acute coronary syndrome','c'],
+  ['Explain how GTN, aspirin, P2Y₁₂ inhibitors, statins and thrombolytics act','d'],
+  ['List the complications of a heart attack','c']]},
+ {t:'Heart failure and valves',sec:'cardio-failure',items:[
+  'Explain the vicious circle of heart failure',
+  ['Compare heart failure with reduced and preserved ejection fraction','c'],
+  ['Compare the symptoms and signs of left and right heart failure','c'],
+  ['State the role of NT-proBNP, echocardiography and the chest X-ray','x'],
+  ['Explain which drugs improve survival in heart failure and why','d'],
+  ['Describe the four main valve lesions and their murmurs','c']]},
+ {t:'Development and congenital disease',sec:'cardio-develop',items:[
+  'Order the main steps of heart development and say what each part of the heart tube becomes',
+  'Explain how the atria, ventricles and outflow tract are divided',
+  ['Classify congenital heart defects as cyanotic or not, and describe VSD, ASD, PDA, coarctation, tetralogy of Fallot and transposition','c'],
+  ['Explain duct-dependent circulation and Eisenmenger syndrome','c'],
+  'State what each kind of cardiac imaging is best for']},
+ {t:'Anaemia',sec:'cardio-anaemia',items:[
+  ['Classify anaemia by MCV and list causes in each group','x'],
+  ['Interpret iron studies in iron deficiency and anaemia of chronic disease','x'],
+  'Order the steps of iron absorption and explain the role of hepcidin',
+  'Order the steps of vitamin B12 absorption',
+  ['Describe iron deficiency: causes, signs, who needs the gut investigated, treatment','c'],
+  ['Compare B12 and folate deficiency and explain pernicious anaemia','c'],
+  ['Recognise haemolysis from blood tests','x']]}
+]},
+/* ================================================================== */
+{ch:'renal',title:'Renal',groups:[
+ {t:'Filtration',sec:'renal-filter',items:[
+  'Describe the three layers of the filtration barrier and what each holds back',
+  ['Calculate net filtration pressure from the three forces','x'],
+  'Predict the effect on GFR of constricting or dilating the afferent and efferent arterioles',
+  'Explain tubuloglomerular feedback and the juxtaglomerular apparatus',
+  'Explain how GFR is estimated and the pitfalls of creatinine',
+  ['Calculate clearance, and say what the clearance of inulin, glucose and PAH means','x'],
+  ['Compare nephrotic and nephritic syndromes','c'],
+  ['Explain how NSAIDs and ACE inhibitors together cause kidney injury','d']]},
+ {t:'The nephron',sec:'renal-tubule',items:[
+  'Trace filtrate from glomerulus to urethra',
+  'State what each segment reabsorbs, its sodium transporter and its permeability to water',
+  'Explain how the loop of Henle builds the medullary gradient and how the collecting duct uses it',
+  'Explain what principal and intercalated cells do',
+  'Describe glucose handling and the renal threshold',
+  'State where each aquaporin is and which one ADH controls',
+  ['Match each diuretic to its segment','d']]},
+ {t:'Water and sodium',sec:'renal-water',items:[
+  'Explain how osmolality (ADH and thirst) and volume (RAAS, ANP) are controlled separately',
+  'Order the steps from dehydration to concentrated urine',
+  'State the body fluid compartments and how to estimate osmolality',
+  ['Sort the causes of hyponatraemia by volume status, and list causes of hypernatraemia','c'],
+  ['Describe SIADH and diabetes insipidus and how to tell them apart','c'],
+  ['Explain the danger of correcting sodium too fast','c'],
+  ['Write a day\'s maintenance fluids','x']]},
+ {t:'Diuretics',sec:'renal-diuretics',items:[
+  ['State the site, target, uses and side effects of loop, thiazide, potassium-sparing, carbonic anhydrase inhibitor and osmotic diuretics','d'],
+  'Explain why loop and thiazide diuretics cause low potassium and alkalosis',
+  ['Explain how loops and thiazides differ in their effect on calcium','d'],
+  ['State the sick day rules and the "triple whammy"','c']]},
+ {t:'Acid–base',sec:'renal-acidbase',items:[
+  'Name the three lines of defence against a change in pH and how fast each acts',
+  'Order the steps by which the proximal tubule reclaims bicarbonate',
+  ['Interpret a blood gas in five steps and recognise compensation','x'],
+  ['List causes of each of the four acid–base disorders','c'],
+  ['Calculate the anion gap and list causes of a raised and a normal gap acidosis','x'],
+  ['Define type 1 and type 2 respiratory failure and how oxygen is given in each','c']]},
+ {t:'Electrolytes',sec:'renal-electrolytes',items:[
+  'Explain what moves potassium into and out of cells',
+  ['Compare hypo- and hyperkalaemia: causes, ECG changes, treatment','c'],
+  ['Compare hypo- and hypercalcaemia: causes, features, treatment','c'],
+  ['Explain refeeding syndrome and the effects of low and high phosphate','c'],
+  ['Explain why low magnesium must be corrected before potassium','c'],
+  'Order the steps by which kidney failure causes bone disease']},
+ {t:'AKI and CKD',sec:'renal-failure',items:[
+  ['Interpret urea, creatinine, eGFR, albumin:creatinine ratio and each square of the urine dipstick','x'],
+  ['Define acute kidney injury and its stages','x'],
+  ['Sort the causes of AKI into pre-renal, intrinsic and post-renal','c'],
+  ['Outline the management of AKI and the indications for dialysis','c'],
+  ['Define chronic kidney disease, its stages and its commonest causes','x'],
+  ['Explain the consequences of CKD and how each is treated','c']]},
+ {t:'Urology',sec:'renal-urology',items:[
+  ['Name the organisms, risk factors, symptoms and treatment of urinary tract infection','c'],
+  ['Compare the four types of kidney stone; describe renal colic and its management','c'],
+  'Order the steps of the micturition reflex and name the nerves and receptors',
+  ['Compare stress, urge and overflow incontinence and their treatments','c'],
+  ['Describe horseshoe kidney, renal agenesis and polycystic kidney disease','c'],
+  'Outline how the kidney develops']},
+ {t:'Transplants',sec:'renal-transplant',items:[
+  ['Compare hyperacute, acute and chronic rejection','c'],
+  'Explain direct and indirect recognition and the role of HLA',
+  'Explain ABO matching, tissue typing and the crossmatch',
+  ['Explain how calcineurin inhibitors, antiproliferatives, steroids and basiliximab act, and their side effects','d'],
+  ['List the long-term risks of immunosuppression','c']]}
+]},
+/* ================================================================== */
+{ch:'gi',title:'Gastrointestinal',groups:[
+ {t:'Gut wall, nerves and blood supply',sec:'gi-wall',items:[
+  'Name the four layers of the gut wall and what each does',
+  'Compare the myenteric and submucosal plexuses, and the effects of sympathetic and parasympathetic nerves',
+  'State the artery, nerve supply and site of referred pain for foregut, midgut and hindgut',
+  'Describe how the epithelium changes along the gut',
+  'Explain the differences above and below the pectinate line',
+  ['Use the nine regions of the abdomen to list likely causes of pain','c'],
+  ['Explain Hirschsprung\'s disease and Barrett\'s oesophagus','c']]},
+ {t:'Motility and vomiting',sec:'gi-motility',items:[
+  'Describe the control and contents of saliva',
+  'Order the phases of swallowing',
+  'Compare peristalsis, segmentation and the migrating motor complex',
+  'Explain what controls gastric emptying',
+  'Order the steps of the vomiting reflex and name the four inputs to the vomiting centre',
+  ['Match each class of anti-emetic to its receptor and best use','d'],
+  ['Work out the likely cause of dysphagia from its pattern','c'],
+  ['List the complications of vomiting','c']]},
+ {t:'Stomach and acid',sec:'gi-stomach',items:[
+  'State what parietal, chief, G, D, ECL and mucous cells secrete',
+  'Order the steps of acid production in the parietal cell',
+  'Explain the three stimulants of acid and what inhibits it',
+  'Describe the cephalic, gastric and intestinal phases',
+  'State the source, trigger and action of gastrin, CCK, secretin, somatostatin, GIP, GLP-1 and motilin',
+  ['Explain how proton pump inhibitors, H₂ blockers, antacids, alginates and misoprostol work','d'],
+  ['Describe reflux disease and its red flags','c'],
+  ['Compare gastric and duodenal ulcers; explain <i>H. pylori</i>, how it is tested for and eradicated','c'],
+  ['Explain how NSAIDs cause ulcers, and the complications of ulcers','c']]},
+ {t:'Liver and jaundice',sec:'gi-liver',items:[
+  'Describe the liver\'s two blood supplies, the lobule and its three zones',
+  'State what hepatocytes, Kupffer cells and stellate cells do',
+  'List the functions of the liver',
+  'Order the steps of bilirubin metabolism',
+  ['Tell pre-hepatic, hepatic and post-hepatic jaundice apart from urine, stool and blood tests','x'],
+  ['Interpret ALT, AST, ALP, GGT, albumin and prothrombin time','x'],
+  ['Explain the signs of chronic liver disease','c'],
+  ['Order the events from liver injury to portal hypertension and name the sites of varices','c'],
+  ['Explain hepatic encephalopathy and ascites and their treatment','c'],
+  ['List the causes of cirrhosis and hepatitis','c']]},
+ {t:'Bile and pancreas',sec:'gi-biliary',items:[
+  'Trace bile from hepatocyte to duodenum',
+  'State what bile contains, what bile salts do and what the enterohepatic circulation is',
+  ['Compare biliary colic, cholecystitis, a stone in the bile duct and cholangitis','c'],
+  'Describe pancreatic juice, what stimulates it and how its proteases are activated',
+  ['Describe acute pancreatitis: causes, diagnosis, treatment, complications','c'],
+  ['Describe chronic pancreatitis and cancer of the head of the pancreas','c']]},
+ {t:'Digestion and absorption',sec:'gi-absorb',items:[
+  'Order the steps of carbohydrate, protein and fat digestion and absorption',
+  'Name the transporters for glucose, galactose and fructose',
+  'Explain micelles and chylomicrons and why fat travels in lymph',
+  'State where iron, folate, vitamin B12 and bile salts are absorbed',
+  'Describe the features of the small intestine that increase its surface',
+  ['Describe coeliac disease: cause, features, tests and treatment','c'],
+  ['Explain lactose intolerance','c'],
+  ['Work out a cause of malabsorption from its clues','c']]},
+ {t:'The bowel',sec:'gi-bowel',items:[
+  'Order the steps of the defecation reflex',
+  'Explain the four mechanisms of diarrhoea',
+  ['List the causes of constipation and how the four classes of laxative work','d'],
+  ['Compare small and large bowel obstruction','c'],
+  ['Compare Crohn\'s disease and ulcerative colitis','c'],
+  ['Explain why the pain of appendicitis moves','c'],
+  ['Describe diverticular disease, bowel cancer and its red flags, and irritable bowel syndrome','c'],
+  ['Describe exomphalos, gastroschisis, malrotation, Meckel\'s diverticulum, pyloric stenosis and intussusception','c']]},
+ {t:'Gut infections and the microbiome',sec:'gi-micro',items:[
+  'State what the gut microbiome does',
+  ['Explain <i>C. difficile</i> infection: cause, prevention, treatment','c'],
+  ['Match the common causes of gastroenteritis to their source and illness','c'],
+  'Explain how cholera toxin causes diarrhoea and why oral rehydration works',
+  ['Describe malaria and typhoid in a returning traveller','c']]}
+]}
+];
