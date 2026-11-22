@@ -318,3 +318,66 @@ body .tabs{flex:0 0 auto;margin-left:auto}
 .twocol.wide2{grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
 
 .dg.explore svg [data-k].on .hit{fill:color-mix(in srgb,var(--accent) 16%,transparent)}
+
+/* ---------- recall mode ---------- */
+.recall-btn{appearance:none;display:inline-flex;align-items:center;gap:7px;flex:0 0 auto;font:inherit;font-size:.9rem;font-weight:600;color:var(--ink-2);background:var(--paper);border:1px solid var(--line-2);border-radius:999px;padding:6px 12px 6px 8px;cursor:pointer;white-space:nowrap}
+.recall-btn:hover{color:var(--ink);border-color:var(--ink-2)}
+.recall-btn .sw{width:28px;height:16px;border-radius:999px;background:var(--line-2);position:relative;transition:background .15s;flex:0 0 auto}
+.recall-btn .sw::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--paper);box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+.recall-btn[aria-pressed="true"]{color:var(--ink);border-color:var(--accent);background:var(--accent-tint)}
+.recall-btn[aria-pressed="true"] .sw{background:var(--accent)}
+.recall-btn[aria-pressed="true"] .sw::after{transform:translateX(12px)}
+/* make room for the Recall switch: the full title only on wide screens; Home is in the chapter drawer below 960px */
+@media (max-width:1100px){.brand span{display:none}}
+@media (max-width:960px){body .brand{display:none}}
+@media (max-width:340px){.recall-btn .lbl{display:none}.recall-btn{padding:6px 8px}}
+
+.rc-a{display:block}
+.rc-bar,.rc-cb,.rc-dock,.rc-try,.rc-mine{display:none}
+body.recall .rc-u{cursor:pointer}
+body.recall .rc-u:not(.rc-on) .rc-a{filter:blur(6px);opacity:.7;user-select:none;-webkit-user-select:none;pointer-events:none}
+body.recall .rc-u:not(.rc-on):hover .rc-a{opacity:.9}
+body.recall li.rc-u.rc-on,body.recall dd.rc-u.rc-on{background:color-mix(in srgb,var(--accent) 7%,transparent);border-radius:6px}
+body.recall td.rc-u.rc-on{background:color-mix(in srgb,var(--accent) 6%,transparent)}
+body.recall .rc-ready th,body.recall .rc-card > h4,body.recall .rc-card dt{cursor:pointer}
+body.recall .rc-ready thead th:hover,body.recall .rc-ready tbody th:hover{background:color-mix(in srgb,var(--accent) 12%,var(--sunk))}
+
+/* the bar above each table */
+body.recall .rc-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 6px}
+.rc-tag{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+.rc-b{appearance:none;font:inherit;font-size:.82rem;font-weight:600;color:var(--ink);background:var(--paper);border:1px solid var(--line-2);border-radius:999px;padding:4px 11px;cursor:pointer;white-space:nowrap}
+.rc-b:hover{border-color:var(--accent)}
+.rc-b[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.rc-b.ghost{color:var(--muted);border-style:dashed}
+.rc-b.strong{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.rc-stat{font-size:.8rem;color:var(--muted)}
+
+/* typing into a table */
+body.recall .rc-fill .rc-td{position:relative;min-width:110px}
+body.recall .rc-fill .rc-td:not(.rc-on) .rc-a{visibility:hidden;filter:none}
+body.recall .rc-fill .rc-td:not(.rc-on) .rc-try{display:block}
+.rc-try{position:absolute;top:4px;left:4px;width:calc(100% - 8px);height:calc(100% - 8px);min-height:30px;box-sizing:border-box;resize:none;margin:0;font:inherit;font-size:.86rem;line-height:1.35;padding:5px 7px;border:1px dashed var(--line-2);border-radius:7px;background:var(--bg);color:var(--ink);overflow:auto}
+.rc-try:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent;background:var(--paper)}
+body.recall .rc-on > .rc-mine{display:block;margin-top:7px;padding:5px 8px;border-left:3px solid var(--accent);border-radius:4px 7px 7px 4px;background:var(--accent-tint);color:var(--ink);font-size:.84rem;white-space:pre-wrap}
+.rc-mine i{display:block;font-style:normal;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* card title button */
+body.recall .rc-cb{display:inline-block;vertical-align:middle;margin-left:8px;appearance:none;font:inherit;font-family:var(--font-body);font-size:.7rem;font-weight:700;letter-spacing:.02em;color:var(--accent-ink);background:var(--accent-tint);border:1px solid transparent;border-radius:999px;padding:2px 9px;cursor:pointer}
+body.recall .rc-cb[aria-pressed="true"]{background:transparent;border-color:var(--line-2);color:var(--muted)}
+
+/* the floating control */
+body.recall.rc-here .rc-dock{display:flex}
+.rc-dock{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:40;align-items:center;gap:10px 14px;flex-wrap:wrap;justify-content:center;width:max-content;max-width:calc(100vw - 24px);box-sizing:border-box;padding:8px 10px 8px 16px;background:var(--paper);border:1px solid var(--line-2);border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.14);font-size:.86rem}
+.rc-dt{display:grid;gap:1px;max-width:430px}
+.rc-dt b{font-size:.9rem}
+.rc-hint{font-size:.78rem;color:var(--muted);line-height:1.35}
+.rc-db{display:flex;gap:6px;flex-wrap:wrap}
+body.recall.rc-here main{padding-bottom:110px}
+@media (max-width:640px){.rc-hint{display:none}.rc-dock{padding:7px 8px 7px 12px}}
+
+/* printing in recall mode gives blank worksheets: hidden answers are left empty */
+@media print{
+  .rc-bar,.rc-cb,.rc-dock,.recall-btn,.rc-try{display:none!important}
+  body.recall .rc-u:not(.rc-on) .rc-a{filter:none!important;opacity:1!important;visibility:hidden}
+  body.recall main{padding-bottom:0!important}
+}
